@@ -1,0 +1,93 @@
+Terminologies-
+
+The variables in the main function represent key parameters and settings used to define the model architecture, training configuration, and dataset handling. Here’s a detailed explanation of each:
+
+Variables in the main Function
+
+1. vocab_size
+
+	•	Meaning: The size of the vocabulary the model uses. It represents the number of unique tokens the tokenizer can recognize, including special tokens like [PAD], [EOS], etc.
+	•	Usage: Defines the size of the embedding layer and the output layer in the model.
+	•	Example: If the tokenizer has 30,000 unique tokens, vocab_size = 30000.
+
+2. embed_size
+
+	•	Meaning: The dimensionality of the embeddings used to represent tokens.
+	•	Usage: Each token in the vocabulary is mapped to a vector of size embed_size. This is the input dimension to the Transformer layers.
+	•	Example: If embed_size = 128, each token is represented as a 128-dimensional vector.
+
+3. num_heads
+
+	•	Meaning: The number of attention heads in the multi-head self-attention mechanism.
+	•	Usage: Each attention head learns to focus on different parts of the input sequence. The total attention size is split across these heads.
+	•	Example: If num_heads = 4 and embed_size = 128, each head has a size of ￼.
+
+4. num_layers
+
+	•	Meaning: The number of Transformer encoder layers in the model.
+	•	Usage: Stacking multiple layers allows the model to learn hierarchical and deep representations of the data.
+	•	Example: If num_layers = 2, the model has two Transformer encoder layers.
+
+5. ff_hidden_size
+
+	•	Meaning: The size of the feedforward network (FFN) inside each Transformer layer.
+	•	Usage: Each Transformer layer contains a feedforward sublayer that expands and compresses the input, providing more expressive power.
+	•	Example: If ff_hidden_size = 512, the FFN expands the embedding from embed_size to 512 dimensions and then projects it back.
+
+6. max_seq_len
+
+	•	Meaning: The maximum length of the input sequence the model can process.
+	•	Usage: Limits the size of input tokens per sample. Sequences shorter than this are padded, and longer ones are truncated.
+	•	Example: If max_seq_len = 50, each input sample has exactly 50 tokens.
+
+7. batch_size
+
+	•	Meaning: The number of samples processed in parallel during one forward/backward pass in training.
+	•	Usage: Larger batches may improve training stability but require more memory. Smaller batches can train on lower memory but might make training noisier.
+	•	Example: If batch_size = 16, the model processes 16 input samples simultaneously.
+
+8. epochs
+
+	•	Meaning: The number of complete passes through the entire training dataset.
+	•	Usage: Training for more epochs allows the model to learn more but risks overfitting if the dataset is small.
+	•	Example: If epochs = 10, the training loop will iterate through the dataset 10 times.
+
+9. learning_rate
+
+	•	Meaning: The step size for updating model weights during optimization.
+	•	Usage: Affects how quickly the model learns. A learning rate that’s too high can cause instability, while a very low rate might make learning too slow.
+	•	Example: If learning_rate = 1e-4, weights are adjusted in steps proportional to ￼ of the gradient value.
+
+10. device
+
+	•	Meaning: The hardware on which the model and tensors will be stored and computed.
+	•	Usage: Leverages GPUs for faster computation if available, otherwise defaults to CPU.
+	•	Example:
+	•	"cuda": Use a GPU.
+	•	"cpu": Use the CPU.
+
+11. text_data
+
+	•	Meaning: The raw text used to create the dataset for training the model.
+	•	Usage: Tokenized into sequences for model input. The quality and size of this text greatly influence the model’s ability to generalize.
+	•	Example:
+
+text_data = (
+    "This is a sample dataset. Add more text for training. "
+    "It should be long enough to ensure there are multiple samples "
+    "based on the sequence length."
+)
+
+Interconnection of Variables
+
+	1.	Dataset Handling:
+	•	text_data and max_seq_len define the input data and its structure.
+	•	vocab_size is derived from the tokenizer applied to text_data.
+	2.	Model Configuration:
+	•	embed_size, num_heads, num_layers, and ff_hidden_size control the complexity of the Transformer model.
+	3.	Training Configuration:
+	•	batch_size, epochs, and learning_rate govern how the model learns from the dataset.
+	4.	Hardware Optimization:
+	•	device ensures efficient computation based on the available hardware.
+
+Let me know if you’d like any variable explained in more detail or want recommendations for choosing appropriate values!
